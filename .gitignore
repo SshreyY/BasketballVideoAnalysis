@@ -123,10 +123,7 @@ ehthumbs.db
 Thumbs.db
 
 # Project specific
-*.mp4
-*.avi
-*.mov
-*.mkv
+
 output/
 results/
 temp/
