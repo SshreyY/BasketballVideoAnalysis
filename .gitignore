@@ -129,4 +129,14 @@ Thumbs.db
 *.mkv
 output/
 results/
-temp/ 
+temp/
+
+# Model files
+*.pt
+*.pth
+*.onnx
+*.tflite
+*.h5
+*.pb
+models/
+weights/ 
