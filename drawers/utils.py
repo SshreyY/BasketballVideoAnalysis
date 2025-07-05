@@ -1,7 +1,34 @@
 import cv2
 import sys
+import numpy as np
+
 sys.path.append("../")
 from utils import get_center_of_bbox, get_bbox_width
+
+
+def draw_triangle(frame, bbox, color):
+    y = int(bbox[1])
+    x,_ = get_center_of_bbox(bbox)
+
+    # Make triangle larger and ensure it stays within frame bounds
+    height, width = frame.shape[:2]
+    
+    # Clamp x and y to ensure triangle stays within frame
+    x = max(15, min(x, width - 15))
+    y = max(20, min(y, height - 20))
+
+    triangle_points = np.array([
+        [x, y], 
+        [x-15, y-25], 
+        [x+15, y-25]
+        ], dtype=np.int32)
+
+    # Draw filled triangle first
+    cv2.drawContours(frame, [triangle_points], 0, color, cv2.FILLED)
+    # Then draw outline
+    cv2.drawContours(frame, [triangle_points], 0, (0,0,0), 2)
+
+    return frame
 
 
 def draw_ellipse(frame, bbox, color, track_id=None):
