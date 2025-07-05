@@ -70,8 +70,7 @@ docs/_build/
 # PyBuilder
 target/
 
-# Jupyter Notebook
-.ipynb_checkpoints
+
 
 # pyenv
 .python-version
@@ -123,17 +122,15 @@ ehthumbs.db
 Thumbs.db
 
 # Project specific
-
+runs/
 output/
 results/
 temp/
 
 # Model files
-*.pt
 *.pth
 *.onnx
 *.tflite
 *.h5
 *.pb
-models/
 weights/ 
