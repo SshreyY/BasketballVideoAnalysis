@@ -1,8 +1,8 @@
 from ultralytics import YOLO
 
-model = YOLO("yolov8x")
+model = YOLO("models/player_detector.pt")
 
-results = model.predict("input_video/Q2_m8-s37_Curry 5' Driving Reverse Layup (14 PTS).mp4", save=True)
+results = model.predict("input_video/StephLayupVid.mp4", save=True)
 
 print(results)
 print("--------------------------------")

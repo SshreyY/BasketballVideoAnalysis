@@ -122,7 +122,7 @@ ehthumbs.db
 Thumbs.db
 
 # Project specific
-
+runs/
 output/
 results/
 temp/
