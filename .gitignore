@@ -70,8 +70,7 @@ docs/_build/
 # PyBuilder
 target/
 
-# Jupyter Notebook
-.ipynb_checkpoints
+
 
 # pyenv
 .python-version
@@ -129,11 +128,9 @@ results/
 temp/
 
 # Model files
-*.pt
 *.pth
 *.onnx
 *.tflite
 *.h5
 *.pb
-models/
 weights/ 
