@@ -96,6 +96,10 @@ class BallTracker:
         df_ball_positions = df_ball_positions.interpolate()
         df_ball_positions = df_ball_positions.bfill()
 
-        ball_positions = [ {1: {"bbox": x}} for x in df_ball_positions.to_numpy().tolist()]
+        # Convert numpy types to regular Python types
+        ball_positions = []
+        for x in df_ball_positions.to_numpy().tolist():
+            bbox = [int(val) if hasattr(val, 'item') else int(val) for val in x]
+            ball_positions.append({1: {"bbox": bbox}})
 
         return ball_positions
