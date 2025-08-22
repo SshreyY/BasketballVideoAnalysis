@@ -5,7 +5,7 @@ import supervision as sv
 class CourtKeyPointsDrawer:
 
     def __init__(self):
-        self.keypoint_color = "#ff2c2c"
+        self.keypoint_color = "#0066cc"
 
     
     def draw(self, frames, court_keypoints):

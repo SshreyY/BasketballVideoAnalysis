@@ -1,6 +1,6 @@
 from utils import read_video, save_video
 from trackers import PlayerTracker, BallTracker
-from drawers import PlayerTracksDrawer, BallTracksDrawer, CourtKeypointsDrawer
+from drawers import PlayerTracksDrawer, BallTracksDrawer, CourtKeyPointsDrawer
 from team_assigner import TeamAssigner
 from ball_acquisiton import BallAcquisitionDetector
 from court_keypoint_detector import CourtKeypointDetector
@@ -52,7 +52,7 @@ def main():
     #initialize the drawers
     player_tracks_drawer = PlayerTracksDrawer()
     ball_tracks_drawer = BallTracksDrawer()
-    court_key_points_drawer = CourtKeypointsDrawer()
+    court_key_points_drawer = CourtKeyPointsDrawer()
 
     # draw object tracks
     output_video_frames = player_tracks_drawer.draw_tracks(video_frames, player_tracks, player_assignment, ball_acquisition)
