@@ -34,8 +34,6 @@ def main():
                                                     stub_path="stubs/court_keypoints_stubs.pkl"
                                                     )
 
-    print(court_keypoints)
-
     # Remove wrong ball detections
     ball_tracks = ball_tracker.remove_wrong_detections(ball_tracks)
 

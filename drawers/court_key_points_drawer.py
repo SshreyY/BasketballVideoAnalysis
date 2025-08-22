@@ -4,7 +4,7 @@ import supervision as sv
 
 class CourtKeyPointsDrawer:
 
-    def __init__(self, court_keypoints: list[dict]):
+    def __init__(self):
         self.keypoint_color = "#ff2c2c"
 
     
@@ -24,8 +24,10 @@ class CourtKeyPointsDrawer:
             annotated_frame = frame.copy()
 
             keypoints = court_keypoints[index]
-            annotated_frame = vertex_annotator.annotate(frame=annotated_frame, keypoints=keypoints)
-            annotated_frame = vertex_label_annotator.annotate(frame=annotated_frame, keypoints=keypoints)
+            annotated_frame = vertex_annotator.annotate(scene=annotated_frame, key_points=keypoints)
+            
+            keypoints_numpy = keypoints.cpu().numpy()
+            annotated_frame = vertex_label_annotator.annotate(scene=annotated_frame, key_points=keypoints_numpy)
 
             output_frames.append(annotated_frame)
 

@@ -20,7 +20,7 @@ class CourtKeypointDetector:
         for i in range(0, len(frames), batch_size):
             detections_batch = self.model.predict(frames[i:i+batch_size], conf=0.5)
             for detection in detections_batch:
-                court_keypoints.append(detection)
+                court_keypoints.append(detection.keypoints)
 
         save_stub(stub_path, court_keypoints)
             
