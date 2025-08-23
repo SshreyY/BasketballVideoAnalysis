@@ -7,11 +7,11 @@ from court_keypoint_detector import CourtKeypointDetector
 from tactical_view_converter import TacticalViewConverter
 from speed_and_distance_calculator import SpeedAndDistanceCalculator
 
-def main():
-
+def process_video(input_video_path: str, output_video_path: str):
+    """Process a basketball video and save the annotated output"""
+    
     # Read the video
-    video_path = "input_video/StephLayupVid.mp4"
-    video_frames = read_video(video_path)
+    video_frames = read_video(input_video_path)
 
     #initialize the player tracker
     player_tracker = PlayerTracker("models/player_detector.pt")
@@ -92,7 +92,18 @@ def main():
 
 
     #Save the video
-    save_video(output_video_frames, "output_video/StephLayupVid_output.avi")
+    save_video(output_video_frames, output_video_path)
+    
+    return output_video_path
+
+def main():
+    """Main function for standalone execution - uses default video paths"""
+    input_path = "input_video/StephLayupVid.mp4"
+    output_path = "output_video/StephLayupVid_output.avi"
+    
+    print(f"Processing video: {input_path}")
+    result = process_video(input_path, output_path)
+    print(f"Video processing complete. Output saved to: {result}")
 
 
 
