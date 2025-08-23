@@ -1,11 +1,11 @@
 from utils import read_video, save_video
 from trackers import PlayerTracker, BallTracker
-from drawers import PlayerTracksDrawer, BallTracksDrawer, CourtKeyPointsDrawer, TacticalViewDrawer
+from drawers import PlayerTracksDrawer, BallTracksDrawer, CourtKeyPointsDrawer, TacticalViewDrawer, SpeedAndDistanceDrawer
 from team_assigner import TeamAssigner
 from ball_acquisiton import BallAcquisitionDetector
 from court_keypoint_detector import CourtKeypointDetector
 from tactical_view_converter import TacticalViewConverter
-
+from speed_and_distance_calculator import SpeedAndDistanceCalculator
 
 def main():
 
@@ -53,12 +53,23 @@ def main():
     court_keypoints = tactical_view_converter.validate_keypoints(court_keypoints)
     tactical_player_positions = tactical_view_converter.transform_player_positions(player_tracks, court_keypoints)
 
+    # speed and distance calculator
+    speed_and_distance_calculator = SpeedAndDistanceCalculator(
+        tactical_view_converter.width, 
+        tactical_view_converter.height, 
+        tactical_view_converter.actual_width_in_meters, 
+        tactical_view_converter.actual_height_in_meters
+        )
+    player_distance_per_frame = speed_and_distance_calculator.calculate_distance(tactical_player_positions)
+    player_speed_per_frame = speed_and_distance_calculator.calculate_speed(player_distance_per_frame)
+
     # draw output
     #initialize the drawers
     player_tracks_drawer = PlayerTracksDrawer()
     ball_tracks_drawer = BallTracksDrawer()
     court_key_points_drawer = CourtKeyPointsDrawer()
     tactical_view_drawer = TacticalViewDrawer()
+    speed_and_distance_drawer = SpeedAndDistanceDrawer()
 
     # draw object tracks
     output_video_frames = player_tracks_drawer.draw_tracks(video_frames, player_tracks, player_assignment, ball_acquisition)
@@ -71,6 +82,15 @@ def main():
     #tactical view
     output_video_frames = tactical_view_drawer.draw(output_video_frames, tactical_view_converter.court_image_path, tactical_view_converter.width, tactical_view_converter.height, tactical_view_converter.key_points, tactical_player_positions, player_assignment, ball_acquisition)
     
+
+    # speed and distance
+    output_video_frames = speed_and_distance_drawer.draw(
+        output_video_frames, 
+        player_tracks, 
+        player_distance_per_frame, 
+        player_speed_per_frame)
+
+
     #Save the video
     save_video(output_video_frames, "output_video/StephLayupVid_output.avi")
 
