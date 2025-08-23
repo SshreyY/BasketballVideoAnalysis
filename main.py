@@ -50,6 +50,8 @@ def main():
     ball_acquisition = ball_acquisition_detector.detect_ball_posession(player_tracks, ball_tracks)    
     # tactical view
     tactical_view_converter = TacticalViewConverter(court_image_path="./images/basketball_court.png")
+    court_keypoints = tactical_view_converter.validate_keypoints(court_keypoints)
+    tactical_player_positions = tactical_view_converter.transform_player_positions(player_tracks, court_keypoints)
 
     # draw output
     #initialize the drawers
@@ -67,7 +69,7 @@ def main():
 
 
     #tactical view
-    output_video_frames = tactical_view_drawer.draw(output_video_frames, tactical_view_converter.court_image_path, tactical_view_converter.width, tactical_view_converter.height)
+    output_video_frames = tactical_view_drawer.draw(output_video_frames, tactical_view_converter.court_image_path, tactical_view_converter.width, tactical_view_converter.height, tactical_view_converter.key_points, tactical_player_positions, player_assignment, ball_acquisition)
     
     #Save the video
     save_video(output_video_frames, "output_video/StephLayupVid_output.avi")
