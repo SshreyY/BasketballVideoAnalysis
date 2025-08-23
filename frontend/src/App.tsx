@@ -40,7 +40,8 @@ function App() {
       if (response.ok) {
         setMessage(result.message);
         if (result.output_filename) {
-          setOutputVideoUrl(`http://localhost:8000/output-video/${result.output_filename}`);
+          const videoUrl = `http://localhost:8000/output-video/${result.output_filename}`;
+          setOutputVideoUrl(videoUrl);
         }
       } else {
         setMessage(`Error: ${result.detail || 'Upload failed'}`);
@@ -92,21 +93,27 @@ function App() {
         {outputVideoUrl && (
           <div className="output-section">
             <h2>Processed Video</h2>
-            <video 
-              controls 
-              width="100%" 
-              className="output-video"
-            >
-              <source src={outputVideoUrl} type="video/mp4" />
-              Your browser does not support the video tag.
-            </video>
-            <a 
-              href={outputVideoUrl} 
-              download 
-              className="download-link"
-            >
-              Download Processed Video
-            </a>
+            <div className="video-container">
+              <video 
+                controls 
+                width="100%" 
+                className="output-video"
+              >
+                <source src={outputVideoUrl} type="video/mp4" />
+                <source src={outputVideoUrl} type="video/avi" />
+                <source src={outputVideoUrl} type="video/x-msvideo" />
+                Your browser does not support the video tag.
+              </video>
+            </div>
+            <div className="download-container">
+              <a 
+                href={outputVideoUrl.replace('/output-video/', '/download-video/')} 
+                download 
+                className="download-link"
+              >
+                Download Processed Video
+              </a>
+            </div>
           </div>
         )}
       </main>
